@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-4 text-center">
+    <h3 class="mb-3">月別アーカイブ</h3>
+    <div class="d-flex justify-content-center flex-wrap gap-2">
+        <a href="{% url 'home' %}" class="btn btn-secondary btn-sm">すべて</a>
+        
+        {% for month_date in archive_months %}
+            <a href="{% url 'month_archive' month_date.year month_date.month %}" class="btn btn-outline-secondary btn-sm">
+                {{ month_date|date:"Y年 n月" }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+
+<div class="row">
+    {% for diary in diary_list %}
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card shadow border-0 h-100">
+            {% if diary.image %}
+                <img src="{{ diary.image.url }}" class="card-img-top" alt="{{ diary.title }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+                <div class="bg-light text-muted d-flex align-items-center justify-content-center" style="height: 200px; font-size: 0.8rem;">
+                    No Image
+                </div>
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title fw-bold text-dark">{{ diary.title }}</h5>
+                <p class="card-text text-muted" style="height: 4.5em; overflow: hidden;">
+                    {{ diary.text | truncatechars:100 }}
+                </p>
+                <div class="d-grid"> 
+                    <a href="{% url 'diary_detail' diary.pk %}" class="btn btn-outline-primary">
+                        詳しく読む
+                    </a>
+                </div>
+            </div>
+            <div class="card-footer bg-light border-0 text-muted small">
+                <i class="bi bi-clock"></i> {{ diary.date|date:"Y/m/d" }}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center">
+        <p>まだ日記がありません。管理画面から投稿してみましょう！</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

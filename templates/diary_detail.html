@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="display-4 fw-bold">{{ diary.title }}</h1>
+            <p class="text-muted">{{ diary.date|date:"Y年m月d日 H:i" }}</p>
+            <hr>
+            <div class="mt-4" style="line-height: 2; font-size: 1.1rem;">
+                {{ diary.text|linebreaks }}
+            </div>
+            
+            <div class="mt-5">
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary">← 一覧に戻る</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
