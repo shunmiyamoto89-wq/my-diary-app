@@ -128,3 +128,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # 本番環境でのメディアファイルの扱い（既に書いてあればそのままでOK）
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
